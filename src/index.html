@@ -21,25 +21,84 @@
               <p class="trello__counter">counter</p>
             </div>
             <div class="card__container">
-              <div class="card">
+              <!-- <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Title</h5>
                   <p class="card-text">description</p>
-                  <div class="card__bottom">
+                  <div class="card-bottom">
                     <p class="card-user">user</p>
                     <p class="card-time">time</p>
                   </div>
-
-                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                  <div class="card-management">
+                    <a href="#" class="btn card-btn-edit"><i class="fa-solid fa-pen"></i></a>
+                    <select class="form-select" aria-label="Disabled select example">
+                      <option selected value="1">todo</option>
+                      <option value="2">in progress</option>
+                      <option value="3">done</option>
+                    </select>
+                    <a href="#" class="btn card-btn-delete"><i class="fa-solid fa-trash"></i></a>
+                  </div>
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <div class="trello__item-bottom">
               <a href="#" class="btn trello__button">Add todo</a>
             </div>
+            <!-- Button trigger modal -->
+            <button
+              class="trello__item-bottom"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <a href="#" class="btn trello__button">Add todo</a>
+            </button>
+
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <form action="submit" class="modal-dialog" id="todoForm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <input type="text" placeholder="title" id="title" />
+                  </div>
+                  <div class="modal-body">
+                    <textarea
+                      placeholder="description"
+                      name="description"
+                      id="description"
+                      cols="30"
+                      rows="5"
+                    ></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <select class="form-select" aria-label="Disabled select example">
+                      <option selected>user</option>
+                    </select>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      cancel
+                    </button>
+                    <button
+                      id="confirm"
+                      type="button"
+                      class="btn btn-primary"
+                      aria-label="Close"
+                      data-bs-dismiss="modal"
+                    >
+                      confirm
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="trello__in-progress trello__item">
+          <!-- <div class="trello__in-progress trello__item">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Title</h5>
@@ -48,8 +107,6 @@
                   <p class="card-user">user</p>
                   <p class="card-time">time</p>
                 </div>
-
-                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
               </div>
             </div>
           </div>
@@ -62,11 +119,9 @@
                   <p class="card-user">user</p>
                   <p class="card-time">time</p>
                 </div>
-
-                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

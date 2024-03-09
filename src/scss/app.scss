@@ -1,11 +1,14 @@
 @import 'bootstrap/scss/bootstrap';
+@import './card.scss';
+@import './modal.scss';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 .container {
   display: flex;
   justify-content: center;
 }
 
 .trello {
-  width: 500px;
+  width: 100%;
 }
 .trello__information {
   border: 1px solid purple;
@@ -27,6 +30,7 @@
 }
 
 .trello__item {
+  width: 33%;
   height: 600px;
   position: relative;
 }
@@ -43,16 +47,12 @@
   margin: 5px;
 }
 
-.card__container {
-  max-height: 540px;
-  overflow: auto;
-}
-
 .trello__item-bottom {
   position: absolute;
   width: 100%;
   bottom: 0;
   left: 0;
+  border: 0;
 }
 
 .trello__button {
@@ -65,27 +65,4 @@
   background: white;
   border: 1px solid green;
   color: black;
-}
-
-.trello__todo {
-}
-.card {
-}
-.card-body {
-}
-.card-title {
-}
-.card-text {
-}
-.card__bottom {
-  display: flex;
-  justify-content: space-between;
-}
-.btn {
-}
-.btn-primary {
-}
-.trello__in-progress {
-}
-.trello__done {
 }
