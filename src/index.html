@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./scss/app.scss" />
+    <script src="./js/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="trello">
+        <div class="trello__information">
+          <p class="trello__name">name</p>
+          <p class="trello__time">time</p>
+        </div>
+        <div class="trello__container">
+          <div class="trello__todo trello__item">
+            <div class="trello__item-top">
+              <p>todo</p>
+              <p class="trello__counter">counter</p>
+            </div>
+            <div class="card__container">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Title</h5>
+                  <p class="card-text">description</p>
+                  <div class="card__bottom">
+                    <p class="card-user">user</p>
+                    <p class="card-time">time</p>
+                  </div>
+
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="trello__item-bottom">
+              <a href="#" class="btn trello__button">Add todo</a>
+            </div>
+          </div>
+          <div class="trello__in-progress trello__item">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Title</h5>
+                <p class="card-text">description</p>
+                <div class="card__bottom">
+                  <p class="card-user">user</p>
+                  <p class="card-time">time</p>
+                </div>
+
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              </div>
+            </div>
+          </div>
+          <div class="trello__done trello__item">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Title</h5>
+                <p class="card-text">description</p>
+                <div class="card__bottom">
+                  <p class="card-user">user</p>
+                  <p class="card-time">time</p>
+                </div>
+
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

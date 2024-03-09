@@ -1,0 +1,91 @@
+@import 'bootstrap/scss/bootstrap';
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.trello {
+  width: 500px;
+}
+.trello__information {
+  border: 1px solid purple;
+  background: rgb(236, 102, 236);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.trello__name {
+  margin: 20px;
+}
+.trello__time {
+  margin: 20px;
+}
+
+.trello__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trello__item {
+  height: 600px;
+  position: relative;
+}
+
+.trello__item-top {
+  border: 1px solid greenyellow;
+  background: rgb(157, 214, 71);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.trello__item-top p {
+  margin: 5px;
+}
+
+.card__container {
+  max-height: 540px;
+  overflow: auto;
+}
+
+.trello__item-bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.trello__button {
+  background: green;
+  color: white;
+  width: 100%;
+}
+
+.trello__button:hover {
+  background: white;
+  border: 1px solid green;
+  color: black;
+}
+
+.trello__todo {
+}
+.card {
+}
+.card-body {
+}
+.card-title {
+}
+.card-text {
+}
+.card__bottom {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+}
+.btn-primary {
+}
+.trello__in-progress {
+}
+.trello__done {
+}
