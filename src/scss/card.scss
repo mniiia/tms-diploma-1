@@ -14,14 +14,17 @@
 
 .card-management {
   display: flex;
-  a {
-    background: rgb(172, 172, 172);
-    width: 100%;
-    color: white;
+  justify-content: space-between;
+  .card-management-button {
+    border: 3px solid grey;
+    border-radius: 5px;
+    background: white;
   }
-
-  a:hover {
-    border: 1px solid rgb(172, 172, 172);
+  select {
+    // border: 3px solid grey;
+    // border-radius: 5px;
+    // background: white;
+    width: 33%;
   }
 }
 
