@@ -74,20 +74,35 @@ function handleClickTodoForm(event) {
 //функция добавляющая данные в todo и в LC
 function addTodo() {
   const date = new Date();
+  class todoObj2 {
+    constructor(title, description, user) {
+      this.title = title;
+      this.description = description;
+      this.user = user;
+    }
+    createdAt = date;
+    whichPanel = 'todo';
+  }
 
-  const todoObj = {
-    id: Date.now(),
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    user: document.querySelector('.select-add-users').value,
-    createdAt: date,
-    whichPanel: 'todo',
-  };
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+  const user = document.querySelector('.select-add-users').value;
+
+  // const todoObj = {
+  //   id: Date.now(),
+  //   title: document.getElementById('title').value,
+  //   description: document.getElementById('description').value,
+  //   user: document.querySelector('.select-add-users').value,
+  //   createdAt: date,
+  //   whichPanel: 'todo',
+  // };
   // console.log(document.querySelector('.select-add-users').value);
 
   document.getElementById('title').value = '';
   document.getElementById('description').value = '';
-  todos.push(todoObj);
+
+  const todoItem = new todoObj2(title, description, user);
+  todos.push(todoItem);
   saveDataToLocalStorage('todoList', todos);
   renderTodo();
 }
