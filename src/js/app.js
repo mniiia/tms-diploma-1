@@ -80,7 +80,7 @@ function addTodo() {
     title: document.getElementById('title').value,
     description: document.getElementById('description').value,
     user: document.querySelector('.select-add-users').value,
-    time: date,
+    createdAt: date,
     whichPanel: 'todo',
   };
   // console.log(document.querySelector('.select-add-users').value);
@@ -94,7 +94,7 @@ function addTodo() {
 
 //функция создает шаблон todo
 function createTemplate(todoList) {
-  const time = new Date(todoList.time);
+  const time = new Date(todoList.createdAt);
   let select1;
   let select2;
   let select3;
@@ -187,7 +187,6 @@ function saveDataToLocalStorage(key, todoList) {
 trelloContainerElement.addEventListener('click', deleteOneTodo);
 
 function deleteOneTodo(event) {
-  console.log(event.target.id, event.target.id === 'deleteOneTodoIcon', '--------------');
   if (
     event.target.id === 'deleteOneTodoButton' ||
     event.target.id === 'deleteOneTodoIcon' ||
@@ -233,6 +232,7 @@ function deleteOneTodo(event) {
 const editFormElement = document.querySelector('#todoFormEdit');
 
 trelloContainerElement.addEventListener('click', handleClickEditTodoForm);
+
 let saveId;
 
 function handleClickEditTodoForm(event) {
@@ -264,36 +264,67 @@ function handleClickEditTodoForm(event) {
   }
 }
 
-editFormElement.addEventListener('click', editTodo);
+editFormElement.addEventListener('click', handleClickEditTodo);
 
-function editTodo(event) {
+function handleClickEditTodo(event) {
   if (event.target.id === 'confirmEdit') {
-    for (let i = 0; i < todos.length; i++) {
-      if (saveId === `${todos[i].id}`) {
-        todos[i].title = document.getElementById('titleEdit').value;
-        todos[i].description = document.getElementById('descriptionEdit').value;
-        todos[i].user = document.querySelector('.select-edit-users').value;
-        saveDataToLocalStorage('todoList', todos);
-        renderTodo();
-      }
-    }
-    for (let i = 0; i < inprogress.length; i++) {
-      if (saveId === `${inprogress[i].id}`) {
-        inprogress[i].title = document.getElementById('titleEdit').value;
-        inprogress[i].description = document.getElementById('descriptionEdit').value;
-        inprogress[i].user = document.querySelector('.select-edit-users').value;
+    const cardStatus = document.getElementById(`${saveId}`);
+    switch (cardStatus.parentElement) {
+      case cardContainerInProgress:
+        writeEditedValue(inprogress);
         saveDataToLocalStorage('inprogressList', inprogress);
         renderTodoInProgress();
-      }
-    }
-    for (let i = 0; i < done.length; i++) {
-      if (saveId === `${done[i].id}`) {
-        done[i].title = document.getElementById('titleEdit').value;
-        done[i].description = document.getElementById('descriptionEdit').value;
-        done[i].user = document.querySelector('.select-edit-users').value;
+        break;
+      case cardContainer:
+        writeEditedValue(todos);
+        saveDataToLocalStorage('todoList', todos);
+        renderTodo();
+        break;
+      case cardContainerDone:
+        writeEditedValue(done);
         saveDataToLocalStorage('doneList', done);
         renderTodoDone();
-      }
+        break;
+      default:
+        break;
+    }
+
+    // for (let i = 0; i < todos.length; i++) {
+    //   if (saveId === `${todos[i].id}`) {
+    //     todos[i].title = document.getElementById('titleEdit').value;
+    //     todos[i].description = document.getElementById('descriptionEdit').value;
+    //     todos[i].user = document.querySelector('.select-edit-users').value;
+    //     saveDataToLocalStorage('todoList', todos);
+    //     renderTodo();
+    //   }
+    // }
+    // for (let i = 0; i < inprogress.length; i++) {
+    //   if (saveId === `${inprogress[i].id}`) {
+    //     inprogress[i].title = document.getElementById('titleEdit').value;
+    //     inprogress[i].description = document.getElementById('descriptionEdit').value;
+    //     inprogress[i].user = document.querySelector('.select-edit-users').value;
+    //     saveDataToLocalStorage('inprogressList', inprogress);
+    //     renderTodoInProgress();
+    //   }
+    // }
+    // for (let i = 0; i < done.length; i++) {
+    //   if (saveId === `${done[i].id}`) {
+    //     done[i].title = document.getElementById('titleEdit').value;
+    //     done[i].description = document.getElementById('descriptionEdit').value;
+    //     done[i].user = document.querySelector('.select-edit-users').value;
+    //     saveDataToLocalStorage('doneList', done);
+    //     renderTodoDone();
+    //   }
+    // }
+  }
+}
+
+function writeEditedValue(list) {
+  for (let i = 0; i < list.length; i++) {
+    if (saveId === `${list[i].id}`) {
+      list[i].title = document.getElementById('titleEdit').value;
+      list[i].description = document.getElementById('descriptionEdit').value;
+      list[i].user = document.querySelector('.select-edit-users').value;
     }
   }
 }
