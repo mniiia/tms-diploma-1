@@ -11,14 +11,14 @@
     <div class="container">
       <div class="trello">
         <div class="trello__information">
-          <p class="trello__name">name</p>
-          <p class="trello__time">time</p>
+          <p class="trello__name">TRELLO</p>
+          <p class="trello__time"></p>
         </div>
         <div class="trello__container">
           <div class="trello__todo trello__item">
             <div class="trello__item-top">
               <p>todo</p>
-              <p class="trello__counter">counter</p>
+              <p class="trello-todo-counter">0</p>
             </div>
             <div class="card__container"></div>
             <div class="trello__item-bottom">
@@ -58,7 +58,10 @@
                     ></textarea>
                   </div>
                   <div class="modal-footer">
-                    <select class="form-select select-add-users" aria-label="Disabled select example">
+                    <select
+                      class="form-select select-add-users"
+                      aria-label="Disabled select example"
+                    >
                       <option selected>user</option>
                     </select>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -85,64 +88,58 @@
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-            <form action="submit" class="modal-dialog" id="todoFormEdit">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <input type="text" placeholder="title" id="titleEdit" />
+              <form action="submit" class="modal-dialog" id="todoFormEdit">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <input type="text" placeholder="title" id="titleEdit" />
+                  </div>
+                  <div class="modal-body">
+                    <textarea
+                      placeholder="description"
+                      name="description"
+                      id="descriptionEdit"
+                      cols="30"
+                      rows="5"
+                    ></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <select
+                      class="form-select select-edit-users"
+                      aria-label="Disabled select example"
+                    >
+                      <option selected>user</option>
+                    </select>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      cancel
+                    </button>
+                    <button
+                      id="confirmEdit"
+                      type="button"
+                      class="btn btn-primary"
+                      aria-label="Close"
+                      data-bs-dismiss="modal"
+                    >
+                      confirm
+                    </button>
+                  </div>
                 </div>
-                <div class="modal-body">
-                  <textarea
-                    placeholder="description"
-                    name="description"
-                    id="descriptionEdit"
-                    cols="30"
-                    rows="5"
-                  ></textarea>
-                </div>
-                <div class="modal-footer">
-                  <select class="form-select select-edit-users" aria-label="Disabled select example">
-                    <option selected>user</option>
-                  </select>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    cancel
-                  </button>
-                  <button
-                    id="confirmEdit"
-                    type="button"
-                    class="btn btn-primary"
-                    aria-label="Close"
-                    data-bs-dismiss="modal"
-                  >
-                    confirm
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- <div class="trello__in-progress trello__item">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Title</h5>
-                <p class="card-text">description</p>
-                <div class="card__bottom">
-                  <p class="card-user">user</p>
-                  <p class="card-time">time</p>
-                </div>
-              </div>
+              </form>
             </div>
+          </div>
+          <div class="trello__in-progress trello__item">
+            <div class="trello__item-top">
+              <p>in progress</p>
+              <p class="trello-inprogress-counter">counter</p>
+            </div>
+            <div class="card__container__inprogress"></div>
           </div>
           <div class="trello__done trello__item">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Title</h5>
-                <p class="card-text">description</p>
-                <div class="card__bottom">
-                  <p class="card-user">user</p>
-                  <p class="card-time">time</p>
-                </div>
-              </div>
+            <div class="trello__item-top">
+              <p>done</p>
+              <p class="trello-done-counter">counter</p>
             </div>
-          </div> -->
+            <div class="card__container__done"></div>
+          </div>
         </div>
       </div>
     </div>
