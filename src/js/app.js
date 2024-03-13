@@ -75,6 +75,7 @@ function handleClickTodoForm(event) {
 function addTodo() {
   const date = new Date();
   class todoObj2 {
+    id = Date.now();
     constructor(title, description, user) {
       this.title = title;
       this.description = description;
