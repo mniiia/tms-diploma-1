@@ -340,113 +340,69 @@ trelloContainerElement.addEventListener('click', handleClickChangePanel);
 
 function handleClickChangePanel(event) {
   if (event.target.id === 'selectPanel') {
+    const cardId = event.target.closest('.card').id;
     if (event.target.value === 'inprogress') {
-      if (+inProgressCounter.innerHTML < 7) {
+      if (inProgressCounter == 6) {
+        alert('слишком много in progress');
+        renderTodoInProgress();
       } else {
-        alert('слишком пного in progress');
+        const from = [done, todos];
+        changePanelFunction(from, inprogress, cardId);
       }
-      const cardId = event.target.closest('.card').id;
-      for (let i = 0; i < todos.length; i++) {
-        if (`${todos[i].id}` === cardId) {
-          inprogress.push(todos[i]);
-          if (inprogress.length < 7) {
-            todos.splice(i, 1);
-            saveDataToLocalStorage('todoList', todos);
-            saveDataToLocalStorage('inprogressList', inprogress);
-            renderTodo();
-            renderTodoInProgress();
-          } else {
-            inprogress.pop();
-            alert('слишком много in progress');
-            renderTodo();
-          }
-        }
-      }
-      for (let i = 0; i < done.length; i++) {
-        if (`${done[i].id}` === cardId) {
-          inprogress.push(done[i]);
-          if (inprogress.length < 7) {
-            done.splice(i, 1);
-            saveDataToLocalStorage('doneList', done);
-            saveDataToLocalStorage('inprogressList', inprogress);
-            renderTodoInProgress();
-            renderTodoDone();
-          } else {
-            inprogress.pop();
-            alert('слишком много in progress');
-            renderTodoDone();
-          }
-        }
-      }
+      // for (let i = 0; i < todos.length; i++) {
+      //   if (`${todos[i].id}` === cardId) {
+      //     inprogress.push(todos[i]);
+      //     if (inprogress.length < 7) {
+      //       todos.splice(i, 1);
+      //       saveDataToLocalStorage('todoList', todos);
+      //       saveDataToLocalStorage('inprogressList', inprogress);
+      //       renderTodo();
+      //       renderTodoInProgress();
+      //     } else {
+      //       inprogress.pop();
+      //       alert('слишком много in progress');
+      //       renderTodo();
+      //     }
+      //   }
+      // }
+      // for (let i = 0; i < done.length; i++) {
+      //   if (`${done[i].id}` === cardId) {
+      //     inprogress.push(done[i]);
+      //     if (inprogress.length < 7) {
+      //       done.splice(i, 1);
+      //       saveDataToLocalStorage('doneList', done);
+      //       saveDataToLocalStorage('inprogressList', inprogress);
+      //       renderTodoInProgress();
+      //       renderTodoDone();
+      //     } else {
+      //       inprogress.pop();
+      //       alert('слишком много in progress');
+      //       renderTodoDone();
+      //     }
+      //   }
+      // }
+      //вставить change panel function для inprogress!!!!!!!!!
     }
     if (event.target.value === 'todo') {
-      const cardId = event.target.closest('.card').id;
-      for (let i = 0; i < inprogress.length; i++) {
-        if (`${inprogress[i].id}` === cardId) {
-          todos.push(inprogress[i]);
-          inprogress.splice(i, 1);
-          saveDataToLocalStorage('todoList', todos);
-          saveDataToLocalStorage('inprogressList', inprogress);
-          renderTodo();
-          renderTodoInProgress();
-        }
-      }
-      for (let i = 0; i < done.length; i++) {
-        if (`${done[i].id}` === cardId) {
-          todos.push(done[i]);
-          done.splice(i, 1);
-          saveDataToLocalStorage('todoList', todos);
-          saveDataToLocalStorage('doneList', done);
-          renderTodo();
-          renderTodoDone();
-        }
-      }
+      const from = [inprogress, done];
+      changePanelFunction(from, todos, cardId);
     }
     if (event.target.value === 'done') {
-      const cardId = event.target.closest('.card').id;
-      for (let i = 0; i < inprogress.length; i++) {
-        if (`${inprogress[i].id}` === cardId) {
-          done.push(inprogress[i]);
-          inprogress.splice(i, 1);
-          saveDataToLocalStorage('doneList', done);
-          saveDataToLocalStorage('inprogressList', inprogress);
-          renderTodoInProgress();
-          renderTodoDone();
-        }
-      }
-      for (let i = 0; i < todos.length; i++) {
-        if (`${todos[i].id}` === cardId) {
-          done.push(todos[i]);
-          todos.splice(i, 1);
-          saveDataToLocalStorage('todoList', todos);
-          saveDataToLocalStorage('doneList', done);
-          renderTodo();
-          renderTodoDone();
-        }
-      }
+      const from = [inprogress, todos];
+      changePanelFunction(from, done, cardId);
     }
   }
 }
-
+//from массив из состояний откуда может быть перенесена задача
 function changePanelFunction(from, to, cardId) {
   for (let i = 0; i < from.length; i++) {
-    if (`${from[i].id}` === cardId) {
-      to.push(from[i]);
-      from.splice(i, 1);
-      saveDataToLocalStorage('todoList', todos);
-      saveDataToLocalStorage('inprogressList', inprogress);
-      renderTodo();
-      renderTodoInProgress();
-    }
-  }
-  for (let i = 0; i < done.length; i++) {
-    if (`${done[i].id}` === cardId) {
-      todos.push(done[i]);
-      done.splice(i, 1);
-      saveDataToLocalStorage('todoList', todos);
-      saveDataToLocalStorage('doneList', done);
-      renderTodo();
-      renderTodoDone();
+    for (let j = 0; j < from[i].length; j++) {
+      if (`${from[i][j].id}` === cardId) {
+        to.push(from[i][j]);
+        from[i].splice(j, 1);
+        saveAllDataToLocalStorage();
+        renderAll();
+      }
     }
   }
 }
