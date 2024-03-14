@@ -64,6 +64,7 @@ if (localStorage.getItem('doneList')) {
 }
 
 //добавление todo после нажатия кнопки confirm
+
 todoFormElement.addEventListener('click', handleClickTodoForm);
 function handleClickTodoForm(event) {
   if (event.target.id === 'confirm') {
@@ -88,16 +89,6 @@ function addTodo() {
   const title = document.getElementById('title').value;
   const description = document.getElementById('description').value;
   const user = document.querySelector('.select-add-users').value;
-
-  // const todoObj = {
-  //   id: Date.now(),
-  //   title: document.getElementById('title').value,
-  //   description: document.getElementById('description').value,
-  //   user: document.querySelector('.select-add-users').value,
-  //   createdAt: date,
-  //   whichPanel: 'todo',
-  // };
-  // console.log(document.querySelector('.select-add-users').value);
 
   document.getElementById('title').value = '';
   document.getElementById('description').value = '';
@@ -161,7 +152,14 @@ function createTemplate(todoList) {
     `;
 }
 
-//функция рендерит список todo
+//функции рендера
+
+function renderAll() {
+  renderTodo();
+  renderTodoDone();
+  renderTodoInProgress();
+}
+
 function renderTodo() {
   let html = '';
   for (let i = 0; i < todos.length; i++) {
@@ -239,6 +237,18 @@ function deleteOneTodo(event) {
         saveDataToLocalStorage('doneList', done);
         renderTodoDone();
       }
+    }
+  }
+}
+
+function deleteOneTodoHelper(array) {
+  for (let i = 0; i < array.length; i++) {
+    // console.log(typeof cardId, typeof todos[i].id);
+    if (cardId === `${array[i].id}`) {
+      // console.log(todos);
+      array.splice(i, 1);
+      // console.log(todos);
+      renderAll();
     }
   }
 }
@@ -347,14 +357,14 @@ function writeEditedValue(list) {
 
 //пользователи
 
-async function foo() {
+async function getUsers() {
   const users = await fetch('https://jsonplaceholder.typicode.com/users');
   const usersList = await users.json();
   // console.log(usersList);
   addUsers(usersList);
   editUser(usersList);
 }
-foo();
+getUsers();
 
 const selectElementAddTodo = document.querySelector('.select-add-users');
 const selectElementEditTodo = document.querySelector('.select-edit-users');
@@ -387,25 +397,41 @@ trelloContainerElement.addEventListener('click', handleClickChangePanel);
 function handleClickChangePanel(event) {
   if (event.target.id === 'selectPanel') {
     if (event.target.value === 'inprogress') {
+      if (+inProgressCounter.innerHTML < 7) {
+      } else {
+        alert('слишком пного in progress');
+      }
       const cardId = event.target.closest('.card').id;
       for (let i = 0; i < todos.length; i++) {
         if (`${todos[i].id}` === cardId) {
           inprogress.push(todos[i]);
-          todos.splice(i, 1);
-          saveDataToLocalStorage('todoList', todos);
-          saveDataToLocalStorage('inprogressList', inprogress);
-          renderTodo();
-          renderTodoInProgress();
+          if (inprogress.length < 7) {
+            todos.splice(i, 1);
+            saveDataToLocalStorage('todoList', todos);
+            saveDataToLocalStorage('inprogressList', inprogress);
+            renderTodo();
+            renderTodoInProgress();
+          } else {
+            inprogress.pop();
+            alert('слишком пного in progress');
+            renderTodo();
+          }
         }
       }
       for (let i = 0; i < done.length; i++) {
         if (`${done[i].id}` === cardId) {
           inprogress.push(done[i]);
-          done.splice(i, 1);
-          saveDataToLocalStorage('doneList', done);
-          saveDataToLocalStorage('inprogressList', inprogress);
-          renderTodoInProgress();
-          renderTodoDone();
+          if (inprogress.length < 7) {
+            done.splice(i, 1);
+            saveDataToLocalStorage('doneList', done);
+            saveDataToLocalStorage('inprogressList', inprogress);
+            renderTodoInProgress();
+            renderTodoDone();
+          } else {
+            inprogress.pop();
+            alert('слишком пного in progress');
+            renderTodoDone();
+          }
         }
       }
     }
@@ -457,3 +483,19 @@ function handleClickChangePanel(event) {
     }
   }
 }
+
+//удалить все сделанные
+
+const deleteAllElement = document.querySelector('.trello-delete-all');
+deleteAllElement.addEventListener('click', handleClickDeleteAll);
+
+function handleClickDeleteAll() {
+  const warning = confirm('delete all tasks from done list?');
+  if (warning) {
+    done.splice(0, done.length);
+    saveDataToLocalStorage('doneList', done);
+    renderTodoDone();
+  }
+}
+
+console.log(+inProgressCounter.innerHTML);
