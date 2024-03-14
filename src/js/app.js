@@ -37,6 +37,9 @@ const todos = [];
 const inprogress = [];
 const done = [];
 
+const progressionTabs = [todos, inprogress, done];
+const localStorageKeys = ['todoList', 'inprogressList', 'doneList'];
+
 //проверка содержимого LS
 if (localStorage.getItem('todoList')) {
   const dataFromLS = JSON.parse(localStorage.getItem('todoList'));
@@ -169,7 +172,6 @@ function renderTodo() {
   cardContainer.innerHTML = html;
   todoCounter.innerHTML = todos.length;
 }
-
 function renderTodoInProgress() {
   let html = '';
   for (let i = 0; i < inprogress.length; i++) {
@@ -179,7 +181,6 @@ function renderTodoInProgress() {
   cardContainerInProgress.innerHTML = html;
   inProgressCounter.innerHTML = inprogress.length;
 }
-
 function renderTodoDone() {
   let html = '';
   for (let i = 0; i < done.length; i++) {
@@ -196,6 +197,12 @@ function saveDataToLocalStorage(key, todoList) {
   localStorage.setItem(`${key}`, JSON.stringify(todoList));
 }
 
+function saveAllDataToLocalStorage() {
+  for (let i = 0; i < progressionTabs.length; i++) {
+    localStorage.setItem(`${localStorageKeys[i]}`, JSON.stringify(progressionTabs[i]));
+  }
+}
+
 //функция удаляет одно todo
 
 trelloContainerElement.addEventListener('click', deleteOneTodo);
@@ -207,41 +214,14 @@ function deleteOneTodo(event) {
     event.target.classList.contains('delete-task-button')
   ) {
     const cardId = event.target.closest('.card').id;
-    // console.log(cardId);
-    for (let i = 0; i < todos.length; i++) {
-      // console.log(typeof cardId, typeof todos[i].id);
-      if (cardId === `${todos[i].id}`) {
-        // console.log(todos);
-        const slicedTodos = todos.splice(i, 1);
-        // console.log(todos);
-        saveDataToLocalStorage('todoList', todos);
-        renderTodo();
-      }
-    }
-    for (let i = 0; i < inprogress.length; i++) {
-      // console.log(typeof cardId, typeof todos[i].id);
-      if (cardId === `${inprogress[i].id}`) {
-        // console.log(todos);
-        const slicedTodos = inprogress.splice(i, 1);
-        // console.log(todos);
-        saveDataToLocalStorage('inprogressList', inprogress);
-        renderTodoInProgress();
-      }
-    }
-    for (let i = 0; i < done.length; i++) {
-      // console.log(typeof cardId, typeof todos[i].id);
-      if (cardId === `${done[i].id}`) {
-        // console.log(todos);
-        const slicedTodos = done.splice(i, 1);
-        // console.log(todos);
-        saveDataToLocalStorage('doneList', done);
-        renderTodoDone();
-      }
+    for (let i = 0; i < progressionTabs.length; i++) {
+      deleteOneTodoHelper(cardId, progressionTabs[i]);
+      saveDataToLocalStorage(localStorageKeys[i], progressionTabs[i]);
     }
   }
 }
 
-function deleteOneTodoHelper(array) {
+function deleteOneTodoHelper(cardId, array) {
   for (let i = 0; i < array.length; i++) {
     // console.log(typeof cardId, typeof todos[i].id);
     if (cardId === `${array[i].id}`) {
@@ -266,26 +246,18 @@ function handleClickEditTodoForm(event) {
     const cardId = event.target.closest('.card').id;
     saveId = cardId;
     // console.log(saveId, '----------------');
-    for (let i = 0; i < todos.length; i++) {
-      if (cardId === `${todos[i].id}`) {
-        document.getElementById('titleEdit').value = todos[i].title;
-        document.getElementById('descriptionEdit').value = todos[i].description;
-        document.querySelector('.select-edit-users').value = todos[i].user;
-      }
+    for (let i = 0; i < progressionTabs.length; i++) {
+      editTodoFormHelper(cardId, progressionTabs[i]);
     }
-    for (let i = 0; i < inprogress.length; i++) {
-      if (cardId === `${inprogress[i].id}`) {
-        document.getElementById('titleEdit').value = inprogress[i].title;
-        document.getElementById('descriptionEdit').value = inprogress[i].description;
-        document.querySelector('.select-edit-users').value = inprogress[i].user;
-      }
-    }
-    for (let i = 0; i < done.length; i++) {
-      if (cardId === `${done[i].id}`) {
-        document.getElementById('titleEdit').value = done[i].title;
-        document.getElementById('descriptionEdit').value = done[i].description;
-        document.querySelector('.select-edit-users').value = done[i].user;
-      }
+  }
+}
+
+function editTodoFormHelper(cardId, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (cardId === `${array[i].id}`) {
+      document.getElementById('titleEdit').value = array[i].title;
+      document.getElementById('descriptionEdit').value = array[i].description;
+      document.querySelector('.select-edit-users').value = array[i].user;
     }
   }
 }
@@ -314,34 +286,6 @@ function handleClickEditTodo(event) {
       default:
         break;
     }
-
-    // for (let i = 0; i < todos.length; i++) {
-    //   if (saveId === `${todos[i].id}`) {
-    //     todos[i].title = document.getElementById('titleEdit').value;
-    //     todos[i].description = document.getElementById('descriptionEdit').value;
-    //     todos[i].user = document.querySelector('.select-edit-users').value;
-    //     saveDataToLocalStorage('todoList', todos);
-    //     renderTodo();
-    //   }
-    // }
-    // for (let i = 0; i < inprogress.length; i++) {
-    //   if (saveId === `${inprogress[i].id}`) {
-    //     inprogress[i].title = document.getElementById('titleEdit').value;
-    //     inprogress[i].description = document.getElementById('descriptionEdit').value;
-    //     inprogress[i].user = document.querySelector('.select-edit-users').value;
-    //     saveDataToLocalStorage('inprogressList', inprogress);
-    //     renderTodoInProgress();
-    //   }
-    // }
-    // for (let i = 0; i < done.length; i++) {
-    //   if (saveId === `${done[i].id}`) {
-    //     done[i].title = document.getElementById('titleEdit').value;
-    //     done[i].description = document.getElementById('descriptionEdit').value;
-    //     done[i].user = document.querySelector('.select-edit-users').value;
-    //     saveDataToLocalStorage('doneList', done);
-    //     renderTodoDone();
-    //   }
-    // }
   }
 }
 
@@ -413,7 +357,7 @@ function handleClickChangePanel(event) {
             renderTodoInProgress();
           } else {
             inprogress.pop();
-            alert('слишком пного in progress');
+            alert('слишком много in progress');
             renderTodo();
           }
         }
@@ -429,7 +373,7 @@ function handleClickChangePanel(event) {
             renderTodoDone();
           } else {
             inprogress.pop();
-            alert('слишком пного in progress');
+            alert('слишком много in progress');
             renderTodoDone();
           }
         }
@@ -480,6 +424,29 @@ function handleClickChangePanel(event) {
           renderTodoDone();
         }
       }
+    }
+  }
+}
+
+function changePanelFunction(from, to, cardId) {
+  for (let i = 0; i < from.length; i++) {
+    if (`${from[i].id}` === cardId) {
+      to.push(from[i]);
+      from.splice(i, 1);
+      saveDataToLocalStorage('todoList', todos);
+      saveDataToLocalStorage('inprogressList', inprogress);
+      renderTodo();
+      renderTodoInProgress();
+    }
+  }
+  for (let i = 0; i < done.length; i++) {
+    if (`${done[i].id}` === cardId) {
+      todos.push(done[i]);
+      done.splice(i, 1);
+      saveDataToLocalStorage('todoList', todos);
+      saveDataToLocalStorage('doneList', done);
+      renderTodo();
+      renderTodoDone();
     }
   }
 }
