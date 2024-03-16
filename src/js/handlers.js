@@ -110,9 +110,14 @@ function writeEditedValue(list) {
 export function handleClickChangePanel(event) {
   if (event.target.id === 'selectPanel') {
     const cardId = event.target.closest('.card').id;
-    if (event.target.value === 'inprogress') {
+    const childs = [];
+    for (const child of event.target.children) {
+      childs.push(child);
+    }
+    if (event.target.value === 'inprogress' && !childs[1].hasAttribute('selected')) {
       if (+inProgressCounter.innerHTML != 6) {
         const from = [done, todos];
+        console.log(2);
         changePanelFunction(from, inprogress, cardId);
       } else {
         alert('слишком много in progress');

@@ -102,6 +102,7 @@ export function addTodo() {
 
   document.getElementById('title').value = '';
   document.getElementById('description').value = '';
+  document.querySelector('.select-add-users').value = 'user';
 
   const todoItem = new todoObj2(title, description, user);
   todos.push(todoItem);
