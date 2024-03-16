@@ -18,12 +18,9 @@
           <div class="trello__todo trello__item">
             <div class="trello__item-top">
               <p>todo</p>
-              <p class="trello-todo-counter">0</p>
+              <p class="trello__todo-counter">0</p>
             </div>
-            <div class="card__container"></div>
-            <!-- <div class="trello__item-bottom">
-              <a href="#" class="btn trello__button">Add todo</a>
-            </div> -->
+            <div class="trello__card-container"></div>
 
             <!-- Button trigger modal -->
             <button
@@ -34,7 +31,6 @@
             >
               <a href="#" class="btn trello__button">Add todo</a>
             </button>
-
             <!-- Modal add todo -->
             <div
               class="modal fade"
@@ -126,21 +122,23 @@
               </form>
             </div>
           </div>
+
           <div class="trello__in-progress trello__item">
             <div class="trello__item-top">
               <p>in progress</p>
-              <p class="trello-inprogress-counter">counter</p>
+              <p class="trello__inprogress-counter">counter</p>
             </div>
-            <div class="card__container__inprogress"></div>
+            <div class="trello__card-container-inprogress"></div>
           </div>
+
           <div class="trello__done trello__item">
             <div class="trello__item-top">
               <p>done</p>
-              <p class="trello-done-counter">counter</p>
+              <p class="trello__done-counter">counter</p>
             </div>
-            <div class="card__container__done"></div>
-            <button class="trello-delete-all">
-              <a href="#" class="btn trello__button">Delete All</a>
+            <div class="trello__card-container-done"></div>
+            <button class="trello__delete-all">
+              <a href="#" class="btn trello__button trello__button-delete-all">Delete All</a>
             </button>
           </div>
         </div>
@@ -148,52 +146,3 @@
     </div>
   </body>
 </html>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEM Example</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="menu">
-        <ul class="menu__list">
-            <li class="menu__item">
-                <a class="menu__link" href="#">Home</a>
-            </li>
-            <li class="menu__item--highlighted">
-                <a class="menu__link--special" href="#">About</a>
-            </li>
-            <li class="menu__item">
-                <a class="menu__link" href="#">Services</a>
-            </li>
-        </ul>
-        <div class="menu__block">
-            <h2 class="menu__block-title">Additional Links</h2>
-            <ul class="menu__block-list">
-                <li class="menu__block-item">
-                    <a class="menu__block-link" href="#">Contact</a>
-                </li>
-                <li class="menu__block-item">
-                    <a class="menu__block-link" href="#">FAQ</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="sidebar">
-        <h2 class="sidebar__title">Useful Links</h2>
-        <ul class="sidebar__list">
-            <li class="sidebar__item">
-                <a class="sidebar__link" href="#">Documentation</a>
-            </li>
-            <li class="sidebar__item">
-                <a class="sidebar__link" href="#">Tutorials</a>
-            </li>
-            <li class="sidebar__item">
-                <a class="sidebar__link" href="#">Support</a>
-            </li>
-        </ul>
-    </div>
-</body>
-</html> -->

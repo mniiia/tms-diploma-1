@@ -1,17 +1,14 @@
 .card {
+  border: 0;
+  margin-bottom: 5px;
 }
 .card-body {
+  border-radius: 10px;
 }
-.card-title {
-}
-.card-text {
-}
-
 .card-bottom {
   display: flex;
   justify-content: space-between;
 }
-
 .card-management {
   display: flex;
   justify-content: space-between;
@@ -26,9 +23,4 @@
     // background: white;
     width: 33%;
   }
-}
-
-.card__container {
-  max-height: 80vh;
-  overflow: auto;
 }

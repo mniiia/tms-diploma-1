@@ -1,0 +1,17 @@
+.trello__in-progress {
+  .trello__item-top {
+    background: rgb(204, 255, 51);
+  }
+  .card-body {
+    background: rgba(204, 255, 51, 0.5);
+    button {
+      background: white;
+      border: 1px solid rgba(204, 255, 51, 0.5);
+    }
+    .form-select {
+      width: 40%;
+      background-color: white;
+      border: 1px solid rgba(204, 255, 51, 0.5);
+    }
+  }
+}

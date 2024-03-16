@@ -2,12 +2,12 @@ import * as bootstrap from 'bootstrap';
 
 const modalWindowElement = document.querySelector('.modal');
 const todoFormElement = document.querySelector('#todoForm');
-const cardContainer = document.querySelector('.card__container');
-const cardContainerInProgress = document.querySelector('.card__container__inprogress');
-const cardContainerDone = document.querySelector('.card__container__done');
-const todoCounter = document.querySelector('.trello-todo-counter');
-const inProgressCounter = document.querySelector('.trello-inprogress-counter');
-const doneCounter = document.querySelector('.trello-done-counter');
+const cardContainer = document.querySelector('.trello__card-container');
+const cardContainerInProgress = document.querySelector('.trello__card-container-inprogress');
+const cardContainerDone = document.querySelector('.trello__card-container-done');
+const todoCounter = document.querySelector('.trello__todo-counter');
+const inProgressCounter = document.querySelector('.trello__inprogress-counter');
+const doneCounter = document.querySelector('.trello__done-counter');
 const trelloContainerElement = document.querySelector('.trello__container');
 
 //time
@@ -33,6 +33,7 @@ function getTime(date = new Date()) {
 
 setInterval(() => (timeElement.textContent = getTime()), 1000);
 
+//колонки
 const todos = [];
 const inprogress = [];
 const done = [];
@@ -67,7 +68,6 @@ if (localStorage.getItem('doneList')) {
 }
 
 //добавление todo после нажатия кнопки confirm
-
 todoFormElement.addEventListener('click', handleClickTodoForm);
 function handleClickTodoForm(event) {
   if (event.target.id === 'confirm') {
@@ -156,7 +156,6 @@ function createTemplate(todoList) {
 }
 
 //функции рендера
-
 function renderAll() {
   renderTodo();
   renderTodoDone();
@@ -204,7 +203,6 @@ function saveAllDataToLocalStorage() {
 }
 
 //функция удаляет одно todo
-
 trelloContainerElement.addEventListener('click', deleteOneTodo);
 
 function deleteOneTodo(event) {
@@ -234,13 +232,9 @@ function deleteOneTodoHelper(cardId, array) {
 }
 
 //редактирование todo
-
 const editFormElement = document.querySelector('#todoFormEdit');
-
 trelloContainerElement.addEventListener('click', handleClickEditTodoForm);
-
 let saveId;
-
 function handleClickEditTodoForm(event) {
   if (event.target.classList.contains('edit-todo')) {
     const cardId = event.target.closest('.card').id;
@@ -262,8 +256,8 @@ function editTodoFormHelper(cardId, array) {
   }
 }
 
+//записывание сохраненного результата в таск
 editFormElement.addEventListener('click', handleClickEditTodo);
-
 function handleClickEditTodo(event) {
   if (event.target.id === 'confirmEdit') {
     const cardStatus = document.getElementById(`${saveId}`);
@@ -300,7 +294,6 @@ function writeEditedValue(list) {
 }
 
 //пользователи
-
 async function getUsers() {
   const users = await fetch('https://jsonplaceholder.typicode.com/users');
   const usersList = await users.json();
@@ -335,7 +328,6 @@ function editUser(usersList) {
 }
 
 //перемещение карточек
-
 trelloContainerElement.addEventListener('click', handleClickChangePanel);
 
 function handleClickChangePanel(event) {
@@ -349,39 +341,6 @@ function handleClickChangePanel(event) {
         const from = [done, todos];
         changePanelFunction(from, inprogress, cardId);
       }
-      // for (let i = 0; i < todos.length; i++) {
-      //   if (`${todos[i].id}` === cardId) {
-      //     inprogress.push(todos[i]);
-      //     if (inprogress.length < 7) {
-      //       todos.splice(i, 1);
-      //       saveDataToLocalStorage('todoList', todos);
-      //       saveDataToLocalStorage('inprogressList', inprogress);
-      //       renderTodo();
-      //       renderTodoInProgress();
-      //     } else {
-      //       inprogress.pop();
-      //       alert('слишком много in progress');
-      //       renderTodo();
-      //     }
-      //   }
-      // }
-      // for (let i = 0; i < done.length; i++) {
-      //   if (`${done[i].id}` === cardId) {
-      //     inprogress.push(done[i]);
-      //     if (inprogress.length < 7) {
-      //       done.splice(i, 1);
-      //       saveDataToLocalStorage('doneList', done);
-      //       saveDataToLocalStorage('inprogressList', inprogress);
-      //       renderTodoInProgress();
-      //       renderTodoDone();
-      //     } else {
-      //       inprogress.pop();
-      //       alert('слишком много in progress');
-      //       renderTodoDone();
-      //     }
-      //   }
-      // }
-      //вставить change panel function для inprogress!!!!!!!!!
     }
     if (event.target.value === 'todo') {
       const from = [inprogress, done];
@@ -393,7 +352,7 @@ function handleClickChangePanel(event) {
     }
   }
 }
-//from массив из состояний откуда может быть перенесена задача
+//from массив из колонок откуда может быть перенесена таска
 function changePanelFunction(from, to, cardId) {
   for (let i = 0; i < from.length; i++) {
     for (let j = 0; j < from[i].length; j++) {
@@ -408,8 +367,7 @@ function changePanelFunction(from, to, cardId) {
 }
 
 //удалить все сделанные
-
-const deleteAllElement = document.querySelector('.trello-delete-all');
+const deleteAllElement = document.querySelector('.trello__delete-all');
 deleteAllElement.addEventListener('click', handleClickDeleteAll);
 
 function handleClickDeleteAll() {
@@ -420,5 +378,3 @@ function handleClickDeleteAll() {
     renderTodoDone();
   }
 }
-
-console.log(+inProgressCounter.innerHTML);

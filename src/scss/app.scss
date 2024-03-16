@@ -1,7 +1,20 @@
 @import 'bootstrap/scss/bootstrap';
 @import './card.scss';
 @import './modal.scss';
+@import './todo.scss';
+@import './done.scss';
+@import './inprogress.scss';
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -12,16 +25,18 @@
   height: 100vh;
 }
 .trello__information {
-  border: 1px solid purple;
-  background: rgb(236, 102, 236);
+  border: 5px solid lightblue;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 .trello__name {
+  font-weight: bolder;
   margin: 20px;
 }
 .trello__time {
+  font-weight: bolder;
   margin: 20px;
 }
 
@@ -37,15 +52,16 @@
 }
 
 .trello__item-top {
-  border: 1px solid greenyellow;
-  background: rgb(157, 214, 71);
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
-  border-radius: 5px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .trello__item-top p {
-  margin: 5px;
+  margin: 10px 20px;
 }
 
 .trello__item-bottom {
@@ -68,10 +84,27 @@
   color: black;
 }
 
-.trello-delete-all {
+.trello__button-delete-all {
+  background: red;
+  color: white;
+  width: 100%;
+}
+
+.trello__button-delete-all:hover {
+  background: white;
+  border: 1px solid red;
+  color: black;
+}
+
+.trello__delete-all {
   position: absolute;
   width: 100%;
   bottom: 0;
   left: 0;
   border: 0;
+}
+
+.trello__card-container {
+  max-height: 80vh;
+  overflow: auto;
 }
