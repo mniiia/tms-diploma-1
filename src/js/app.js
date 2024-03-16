@@ -103,12 +103,12 @@ function addTodo() {
 }
 
 //функция создает шаблон todo
-function createTemplate(todoList) {
-  const time = new Date(todoList.createdAt);
+function createTemplate({id, createdAt, whichPanel, title, description, user}) {
+  const time = new Date(createdAt);
   let select1;
   let select2;
   let select3;
-  switch (todoList.whichPanel) {
+  switch (whichPanel) {
     case 'todo':
       select1 = 'selected';
       break;
@@ -123,12 +123,12 @@ function createTemplate(todoList) {
       break;
   }
   return `
-    <div class="card" id="${todoList.id}">
+    <div class="card" id="${id}">
         <div class="card-body">
-            <h5 class="card-title">${todoList.title}</h5>
-            <p class="card-text">${todoList.description}</p>
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">${description}</p>
             <div class="card-bottom">
-                <p class="card-user">${todoList.user}</p>
+                <p class="card-user">${user}</p>
                 <p class="card-time">${getTime(time)}</p>
             </div>
             <div class="card-management">
@@ -205,13 +205,13 @@ function saveAllDataToLocalStorage() {
 //функция удаляет одно todo
 trelloContainerElement.addEventListener('click', deleteOneTodo);
 
-function deleteOneTodo(event) {
+function deleteOneTodo({target}) {
   if (
-    event.target.id === 'deleteOneTodoButton' ||
-    event.target.id === 'deleteOneTodoIcon' ||
-    event.target.classList.contains('delete-task-button')
+    target.id === 'deleteOneTodoButton' ||
+    target.id === 'deleteOneTodoIcon' ||
+    target.classList.contains('delete-task-button')
   ) {
-    const cardId = event.target.closest('.card').id;
+    const cardId = target.closest('.card').id;
     for (let i = 0; i < progressionTabs.length; i++) {
       deleteOneTodoHelper(cardId, progressionTabs[i]);
       saveDataToLocalStorage(localStorageKeys[i], progressionTabs[i]);
@@ -235,9 +235,9 @@ function deleteOneTodoHelper(cardId, array) {
 const editFormElement = document.querySelector('#todoFormEdit');
 trelloContainerElement.addEventListener('click', handleClickEditTodoForm);
 let saveId;
-function handleClickEditTodoForm(event) {
-  if (event.target.classList.contains('edit-todo')) {
-    const cardId = event.target.closest('.card').id;
+function handleClickEditTodoForm({target}) {
+  if (target.classList.contains('edit-todo')) {
+    const cardId = target.closest('.card').id;
     saveId = cardId;
     // console.log(saveId, '----------------');
     for (let i = 0; i < progressionTabs.length; i++) {
@@ -264,18 +264,18 @@ function handleClickEditTodo(event) {
     switch (cardStatus.parentElement) {
       case cardContainerInProgress:
         writeEditedValue(inprogress);
-        saveDataToLocalStorage('inprogressList', inprogress);
-        renderTodoInProgress();
+        saveAllDataToLocalStorage();
+        renderAll();
         break;
       case cardContainer:
         writeEditedValue(todos);
-        saveDataToLocalStorage('todoList', todos);
-        renderTodo();
+        saveAllDataToLocalStorage();
+        renderAll();
         break;
       case cardContainerDone:
         writeEditedValue(done);
-        saveDataToLocalStorage('doneList', done);
-        renderTodoDone();
+        saveAllDataToLocalStorage();
+        renderAll();
         break;
       default:
         break;
@@ -352,7 +352,7 @@ function handleClickChangePanel(event) {
     }
   }
 }
-//from массив из колонок откуда может быть перенесена таска
+//from это массив из колонок откуда может быть перенесена таска
 function changePanelFunction(from, to, cardId) {
   for (let i = 0; i < from.length; i++) {
     for (let j = 0; j < from[i].length; j++) {
