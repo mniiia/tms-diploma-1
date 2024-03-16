@@ -117,7 +117,6 @@ export function handleClickChangePanel(event) {
     if (event.target.value === 'inprogress' && !childs[1].hasAttribute('selected')) {
       if (+inProgressCounter.innerHTML != 6) {
         const from = [done, todos];
-        console.log(2);
         changePanelFunction(from, inprogress, cardId);
       } else {
         alert('слишком много in progress');
@@ -156,5 +155,14 @@ export function handleClickDeleteAll() {
     done.splice(0, done.length);
     saveDataToLocalStorage('doneList', done);
     renderTodoDone();
+  }
+}
+
+//отмена
+export function handleClickCancel(event) {
+  if (event.target.id === 'exampleModal' || event.target.id === 'cancel') {
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+    document.querySelector('.select-add-users').value = 'user';
   }
 }
