@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./scss/app.scss" />
+    <script src="./js/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="trello">
+        <div class="trello__information">
+          <p class="trello__name">TRELLO</p>
+          <p class="trello__time"></p>
+        </div>
+        <div class="trello__container">
+          <div class="trello__todo trello__item">
+            <div class="trello__item-top">
+              <p>todo</p>
+              <p class="trello__todo-counter">0</p>
+            </div>
+            <div class="trello__card-container"></div>
+
+            <!-- Button trigger modal -->
+            <button
+              class="trello__item-bottom"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <a href="#" class="btn trello__button">Add todo</a>
+            </button>
+            <!-- Modal add todo -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <form action="submit" class="modal-dialog" id="todoForm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <input type="text" placeholder="title" id="title" />
+                  </div>
+                  <div class="modal-body">
+                    <textarea
+                      placeholder="description"
+                      name="description"
+                      id="description"
+                      cols="30"
+                      rows="5"
+                    ></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <select
+                      class="form-select select-add-users"
+                      aria-label="Disabled select example"
+                    >
+                      <option selected>user</option>
+                    </select>
+                    <button id="cancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      cancel
+                    </button>
+                    <button
+                      id="confirm"
+                      type="button"
+                      class="btn btn-primary"
+                      aria-label="Close"
+                      data-bs-dismiss="modal"
+                    >
+                      confirm
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- Modal edit todo -->
+            <div
+              class="modal fade"
+              id="editModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <form action="submit" class="modal-dialog" id="todoFormEdit">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <input type="text" placeholder="title" id="titleEdit" />
+                  </div>
+                  <div class="modal-body">
+                    <textarea
+                      placeholder="description"
+                      name="description"
+                      id="descriptionEdit"
+                      cols="30"
+                      rows="5"
+                    ></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <select
+                      class="form-select select-edit-users"
+                      aria-label="Disabled select example"
+                    >
+                      <option selected>user</option>
+                    </select>
+                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      cancel
+                    </buttoni>
+                    <button
+                      id="confirmEdit"
+                      type="button"
+                      class="btn btn-primary"
+                      aria-label="Close"
+                      data-bs-dismiss="modal"
+                    >
+                      confirm
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="trello__in-progress trello__item">
+            <div class="trello__item-top">
+              <p>in progress</p>
+              <p class="trello__inprogress-counter">counter</p>
+            </div>
+            <div class="trello__card-container-inprogress"></div>
+          </div>
+
+          <div class="trello__done trello__item">
+            <div class="trello__item-top">
+              <p>done</p>
+              <p class="trello__done-counter">counter</p>
+            </div>
+            <div class="trello__card-container-done"></div>
+            <button class="trello__delete-all">
+              <a href="#" class="btn trello__button trello__button-delete-all">Delete All</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
