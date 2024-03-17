@@ -32,13 +32,7 @@
               <a href="#" class="btn trello__button">Add todo</a>
             </button>
             <!-- Modal add todo -->
-            <div
-              class="modal fade"
-              id="exampleModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="exampleModal">
               <form action="submit" class="modal-dialog" id="todoForm">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -54,20 +48,21 @@
                     ></textarea>
                   </div>
                   <div class="modal-footer">
-                    <select
-                      class="form-select select-add-users"
-                      aria-label="Disabled select example"
-                    >
+                    <select class="form-select select-add-users">
                       <option selected>user</option>
                     </select>
-                    <button id="cancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button
+                      id="cancel"
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
                       cancel
                     </button>
                     <button
                       id="confirm"
                       type="button"
                       class="btn btn-primary"
-                      aria-label="Close"
                       data-bs-dismiss="modal"
                     >
                       confirm
@@ -77,13 +72,7 @@
               </form>
             </div>
             <!-- Modal edit todo -->
-            <div
-              class="modal fade"
-              id="editModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="editModal">
               <form action="submit" class="modal-dialog" id="todoFormEdit">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -99,20 +88,16 @@
                     ></textarea>
                   </div>
                   <div class="modal-footer">
-                    <select
-                      class="form-select select-edit-users"
-                      aria-label="Disabled select example"
-                    >
+                    <select class="form-select select-edit-users">
                       <option selected>user</option>
                     </select>
-                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                       cancel
-                    </buttoni>
+                    </button>
                     <button
                       id="confirmEdit"
                       type="button"
                       class="btn btn-primary"
-                      aria-label="Close"
                       data-bs-dismiss="modal"
                     >
                       confirm
