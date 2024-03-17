@@ -8,14 +8,17 @@ import {
   handleClickCancel,
 } from './handlers.js';
 import 'bootstrap/js/dist/modal';
+import {getUsers} from './users.js';
+import {renderAll, renderTodo, renderTodoDone, renderTodoInProgress} from './render.js';
+import {saveDataToLocalStorage, getDataFromLocalStorage} from './localStorage.js';
 
 const todoFormElement = document.querySelector('#todoForm');
 export const cardContainer = document.querySelector('.trello__card-container');
 export const cardContainerInProgress = document.querySelector('.trello__card-container-inprogress');
 export const cardContainerDone = document.querySelector('.trello__card-container-done');
-const todoCounter = document.querySelector('.trello__todo-counter');
+export const todoCounter = document.querySelector('.trello__todo-counter');
 export const inProgressCounter = document.querySelector('.trello__inprogress-counter');
-const doneCounter = document.querySelector('.trello__done-counter');
+export const doneCounter = document.querySelector('.trello__done-counter');
 const trelloContainerElement = document.querySelector('.trello__container');
 
 // установка таймера в верхней части сайта
@@ -50,31 +53,6 @@ export const done = [];
 export const progressionTabs = [todos, inprogress, done];
 export const localStorageKeys = ['todoList', 'inProgressList', 'doneList'];
 
-// проверка содержимого всех LS
-if (localStorage.getItem('todoList')) {
-  const dataFromLS = JSON.parse(localStorage.getItem('todoList'));
-  for (let i = 0; i < dataFromLS.length; i++) {
-    todos[i] = dataFromLS[i];
-  }
-  renderTodo();
-}
-
-if (localStorage.getItem('inProgressList')) {
-  const dataFromLS = JSON.parse(localStorage.getItem('inProgressList'));
-  for (let i = 0; i < dataFromLS.length; i++) {
-    inprogress[i] = dataFromLS[i];
-  }
-  renderTodoInProgress();
-}
-
-if (localStorage.getItem('doneList')) {
-  const dataFromLS = JSON.parse(localStorage.getItem('doneList'));
-  for (let i = 0; i < dataFromLS.length; i++) {
-    done[i] = dataFromLS[i];
-  }
-  renderTodoDone();
-}
-
 // добавление todo после нажатия кнопки confirm
 todoFormElement.addEventListener('click', handleClickTodoForm);
 
@@ -107,7 +85,7 @@ export function addTodo() {
 }
 
 // функция создает шаблон todo
-function createTemplate({id, createdAt, whichPanel, title, description, user}) {
+export function createTemplate({id, createdAt, whichPanel, title, description, user}) {
   const time = new Date(createdAt);
   let selectedValueTodo;
   let selectedValueInProgress;
@@ -167,92 +145,15 @@ function createTemplate({id, createdAt, whichPanel, title, description, user}) {
     `;
 }
 
-// функции рендера
-export function renderAll() {
-  renderTodo();
-  renderTodoDone();
-  renderTodoInProgress();
-}
-
-export function renderTodo() {
-  let html = '';
-  for (let i = 0; i < todos.length; i++) {
-    todos[i].whichPanel = 'todo';
-    html += createTemplate(todos[i]);
-  }
-  cardContainer.innerHTML = html;
-  todoCounter.innerHTML = todos.length;
-}
-export function renderTodoInProgress() {
-  let html = '';
-  for (let i = 0; i < inprogress.length; i++) {
-    inprogress[i].whichPanel = 'inprogress';
-    html += createTemplate(inprogress[i]);
-  }
-  cardContainerInProgress.innerHTML = html;
-  inProgressCounter.innerHTML = inprogress.length;
-}
-export function renderTodoDone() {
-  let html = '';
-  for (let i = 0; i < done.length; i++) {
-    done[i].whichPanel = 'done';
-    html += createTemplate(done[i]);
-  }
-  cardContainerDone.innerHTML = html;
-  doneCounter.innerHTML = done.length;
-}
-
-// сохранение данных в local storage по ключу
-export function saveDataToLocalStorage(key, todoList) {
-  localStorage.setItem(`${key}`, JSON.stringify(todoList));
-}
-// сохранение всех данных в LC
-export function saveAllDataToLocalStorage() {
-  for (let i = 0; i < progressionTabs.length; i++) {
-    localStorage.setItem(`${localStorageKeys[i]}`, JSON.stringify(progressionTabs[i]));
-  }
-}
-
-// функция удаляет одно todo
+// удаление одно todo
 trelloContainerElement.addEventListener('click', deleteOneTodo);
 
-// функция редактирования todo
+// редактирование todo
 const editFormElement = document.querySelector('#todoFormEdit');
 trelloContainerElement.addEventListener('click', handleClickEditTodoForm);
 
 //записывание сохраненного результата после редактирования в таск
 editFormElement.addEventListener('click', handleClickEditTodo);
-
-// запрос за пользователями
-async function getUsers() {
-  const users = await fetch('https://jsonplaceholder.typicode.com/users');
-  const usersList = await users.json();
-  addUsers(usersList);
-  editUser(usersList);
-}
-getUsers();
-
-const selectElementAddTodo = document.querySelector('.select-add-users');
-const selectElementEditTodo = document.querySelector('.select-edit-users');
-
-// добавлени пользователей в select
-function addUsers(usersList) {
-  for (let i = 0; i < usersList.length; i++) {
-    const newUser = document.createElement('option');
-    newUser.value = usersList[i].username;
-    newUser.innerHTML = usersList[i].username;
-    selectElementAddTodo.append(newUser);
-  }
-}
-// изменение пользователя в select
-function editUser(usersList) {
-  for (let i = 0; i < usersList.length; i++) {
-    const newUser = document.createElement('option');
-    newUser.value = usersList[i].username;
-    newUser.innerHTML = usersList[i].username;
-    selectElementEditTodo.append(newUser);
-  }
-}
 
 // перемещение карточек между столбцами
 trelloContainerElement.addEventListener('click', handleClickChangePanel);
@@ -265,3 +166,9 @@ deleteAllElement.addEventListener('click', handleClickDeleteAll);
 const cancelElement = document.querySelector('#exampleModal');
 cancelElement.addEventListener('click', handleClickCancel);
 console.log(123123);
+
+// запрос пользователей
+getUsers();
+
+// получение данных из local storage
+getDataFromLocalStorage();

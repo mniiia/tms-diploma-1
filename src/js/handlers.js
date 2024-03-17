@@ -1,9 +1,4 @@
 import {
-  renderAll,
-  renderTodoInProgress,
-  renderTodoDone,
-  saveAllDataToLocalStorage,
-  saveDataToLocalStorage,
   addTodo,
   todos,
   inprogress,
@@ -16,15 +11,17 @@ import {
   cardContainerDone,
   renderTodo,
 } from './app.js';
+import {renderAll, renderTodo, renderTodoDone} from './render.js';
+import {saveAllDataToLocalStorage, saveDataToLocalStorage} from './localStorage.js';
 
-//добавление todo после нажатия кнопки confirm
+// добавление todo после нажатия кнопки confirm
 export function handleClickTodoForm(event) {
   if (event.target.id === 'confirm') {
     addTodo();
   }
 }
 
-//функция удаляет одно todo
+// функция удаляет одно todo
 export function deleteOneTodo({target}) {
   if (
     target.id === 'deleteOneTodoButton' ||
@@ -49,7 +46,7 @@ function deleteOneTodoHelper(cardId, array) {
   }
 }
 
-//редактирование todo
+// редактирование todo
 let saveId;
 export function handleClickEditTodoForm({target}) {
   if (target.classList.contains('edit-todo')) {
@@ -106,7 +103,7 @@ function writeEditedValue(list) {
   }
 }
 
-//перемещение карточек
+// перемещение карточек по столбцам
 export function handleClickChangePanel(event) {
   if (event.target.id === 'selectPanel') {
     const cardId = event.target.closest('.card').id;
@@ -134,7 +131,7 @@ export function handleClickChangePanel(event) {
     }
   }
 }
-//from это массив из колонок откуда может быть перенесена таска
+// from это массив из колонок откуда может быть перенесена таска
 function changePanelFunction(from, to, cardId) {
   for (let i = 0; i < from.length; i++) {
     for (let j = 0; j < from[i].length; j++) {
@@ -148,7 +145,7 @@ function changePanelFunction(from, to, cardId) {
   }
 }
 
-//удалить все сделанные
+// удалить все сделанные таски
 export function handleClickDeleteAll() {
   const warning = confirm('delete all tasks from done list?');
   if (warning) {
@@ -158,7 +155,7 @@ export function handleClickDeleteAll() {
   }
 }
 
-//отмена
+// удаление данных из модального окна при нажатии кнопки cancel
 export function handleClickCancel(event) {
   if (event.target.id === 'exampleModal' || event.target.id === 'cancel') {
     document.getElementById('title').value = '';
