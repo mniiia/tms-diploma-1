@@ -2,25 +2,27 @@
   border: 0;
   margin-bottom: 5px;
 }
+
 .card-body {
   border-radius: 10px;
 }
+
 .card-bottom {
   display: flex;
   justify-content: space-between;
 }
+
 .card-management {
   display: flex;
   justify-content: space-between;
+
   .card-management-button {
     border: 3px solid grey;
     border-radius: 5px;
     background: white;
   }
+
   select {
-    // border: 3px solid grey;
-    // border-radius: 5px;
-    // background: white;
     width: 33%;
   }
 }

@@ -32,6 +32,7 @@ export function getDataFromLocalStorage() {
 export function saveDataToLocalStorage(key, todoList) {
   localStorage.setItem(`${key}`, JSON.stringify(todoList));
 }
+
 // сохранение всех данных в LC
 export function saveAllDataToLocalStorage() {
   for (let i = 0; i < progressionTabs.length; i++) {

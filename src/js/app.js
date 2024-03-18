@@ -59,13 +59,13 @@ todoFormElement.addEventListener('click', handleClickTodoForm);
 // класс содержащий структуру таска
 class todoItemClass {
   id = Date.now();
+  createdAt = new Date();
+  whichPanel = 'todo';
   constructor(title, description, user) {
     this.title = title;
     this.description = description;
     this.user = user;
   }
-  createdAt = new Date();
-  whichPanel = 'todo';
 }
 
 // функция добавляющая данные в todo и в local storage
@@ -165,7 +165,6 @@ deleteAllElement.addEventListener('click', handleClickDeleteAll);
 // удаление данных из модального окна при нажатии кнопки cancel
 const cancelElement = document.querySelector('#exampleModal');
 cancelElement.addEventListener('click', handleClickCancel);
-console.log(123123);
 
 // запрос пользователей
 getUsers();

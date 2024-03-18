@@ -24,6 +24,7 @@
   width: 100%;
   height: 100vh;
 }
+
 .trello__information {
   border: 5px solid lightblue;
   display: flex;
@@ -31,10 +32,12 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 .trello__name {
   font-weight: bolder;
   margin: 20px;
 }
+
 .trello__time {
   font-weight: bolder;
   margin: 20px;

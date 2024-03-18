@@ -1,15 +1,19 @@
 .trello__in-progress {
   height: 90vh;
   overflow: auto;
+
   .trello__item-top {
     background: rgb(204, 255, 51);
   }
+
   .card-body {
     background: rgba(204, 255, 51, 0.5);
+
     button {
       background: white;
       border: 1px solid rgba(204, 255, 51, 0.5);
     }
+
     .form-select {
       width: 40%;
       background-color: white;
@@ -17,6 +21,7 @@
     }
   }
 }
+
 .trello__card-container-inprogress {
   max-height: 80vh;
   overflow: auto;

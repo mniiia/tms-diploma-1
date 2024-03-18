@@ -13,9 +13,8 @@ const selectElementEditTodo = document.querySelector('.select-edit-users');
 function addUsers(usersList) {
   for (let i = 0; i < usersList.length; i++) {
     const newUser = document.createElement('option');
-    newUser.value = usersList[i].username;
-    newUser.innerHTML = usersList[i].username;
-    console.log(newUser.innerHTML);
+    newUser.value = usersList[i].name;
+    newUser.innerHTML = usersList[i].name;
     selectElementAddTodo.append(newUser);
   }
 }
@@ -23,8 +22,8 @@ function addUsers(usersList) {
 function editUser(usersList) {
   for (let i = 0; i < usersList.length; i++) {
     const newUser = document.createElement('option');
-    newUser.value = usersList[i].username;
-    newUser.innerHTML = usersList[i].username;
+    newUser.value = usersList[i].name;
+    newUser.innerHTML = usersList[i].name;
     selectElementEditTodo.append(newUser);
   }
 }

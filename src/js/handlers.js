@@ -93,6 +93,7 @@ export function handleClickEditTodo(event) {
     }
   }
 }
+
 function writeEditedValue(list) {
   for (let i = 0; i < list.length; i++) {
     if (saveId === `${list[i].id}`) {
@@ -131,6 +132,7 @@ export function handleClickChangePanel(event) {
     }
   }
 }
+
 // from это массив из колонок откуда может быть перенесена таска
 function changePanelFunction(from, to, cardId) {
   for (let i = 0; i < from.length; i++) {

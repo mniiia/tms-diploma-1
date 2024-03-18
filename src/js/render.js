@@ -27,6 +27,7 @@ export function renderTodo() {
   cardContainer.innerHTML = html;
   todoCounter.innerHTML = todos.length;
 }
+
 export function renderTodoInProgress() {
   let html = '';
   for (let i = 0; i < inprogress.length; i++) {
@@ -36,6 +37,7 @@ export function renderTodoInProgress() {
   cardContainerInProgress.innerHTML = html;
   inProgressCounter.innerHTML = inprogress.length;
 }
+
 export function renderTodoDone() {
   let html = '';
   for (let i = 0; i < done.length; i++) {
